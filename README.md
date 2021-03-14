@@ -30,7 +30,6 @@ Things you may want to cover:
 | nick_name              | string | null: false |
 | email                  | string | null: false, unique: true |
 | encrypted_password     | string | null: false |
-| password__confirmation | string | null: false |
 | last_name              | string | null: false |
 | first_name             | string | null: false |
 | last_name_kana         | string | null: false |
@@ -52,7 +51,7 @@ Things you may want to cover:
 | status_id        | integer    | null: false |
 | postage_id       | integer    | null: false |
 | region_id        | integer    | null: false |
-| Shipping_date_id | integer    | null: false |
+| shipping_date_id | integer    | null: false |
 | price            | integer    | null: false |
 | user             | references | null: false, foreign_key: true|
 
@@ -87,6 +86,7 @@ Things you may want to cover:
 | region_id       | integer    | null: false |
 | city            | string     | null: false |
 | house_number    | string     | null: false |
+| building        | string     | ----------- |
 | phone_number    | string     | null: false |
 | purchase_record | references | null: false, foreign_key: true |
 
