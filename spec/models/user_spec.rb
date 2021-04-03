@@ -7,7 +7,6 @@ RSpec.describe User, type: :model do
   describe 'ユーザー新規登録' do
    context '新規登録できるとき' do
     it "nick_name、first_name、last_name、first_name_kana、last_name_kana、email、password、password_confirmation、birthdayが存在すれば登録できること" do
-      # user = build(:user)
       expect(@user).to be_valid
     end
    end 
@@ -44,6 +43,13 @@ RSpec.describe User, type: :model do
       @user.password = nil
       @user.valid?
       expect(@user.errors.full_messages).to include("Password can't be blank")
+    end  
+  
+    it "passwordが全角では登録できないこと" do
+      @user.password = "ああああああ"
+      @user.password_confirmation = "ああああああ"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password には英字と数字の両方を含めて設定してください")
     end
 
     it "passwordが5文字以下であれば登録できないこと" do
@@ -95,6 +101,19 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("Last name can't be blank")
     end
 
+
+    it "first_nameが漢字・平仮名・カタカナ以外では登録できないこと" do
+      @user.first_name = "aaaaaa"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("First name 全角文字を使用してください")
+    end
+
+    it "last_nameが漢字・平仮名・カタカナ以外では登録できないこと" do
+      @user.last_name = "aaaaaa"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Last name 全角文字を使用してください")
+    end
+
     it "first_name_kanaが空では登録できないこと" do   
       @user.first_name_kana = nil
       @user.valid?
@@ -105,7 +124,19 @@ RSpec.describe User, type: :model do
       @user.last_name_kana = nil
       @user.valid?
       expect(@user.errors.full_messages).to include("Last name kana can't be blank")
-    end   
+    end  
+  
+   it "first_name_kanaが全角カタカナ以外では登録できないこと" do
+     @user.first_name_kana = "aaaaaa"
+     @user.valid?
+     expect(@user.errors.full_messages).to include("First name kana 全角文字を使用してください")
+   end
+
+   it "last_name_kanaが全角カタカナ以外では登録できないこと" do
+     @user.last_name_kana = "aaaaaa"
+     @user.valid?
+     expect(@user.errors.full_messages).to include("Last name kana 全角文字を使用してください")
+   end
 
     it "birthdayがない場合は登録できないこと" do
       @user.birthday = nil
