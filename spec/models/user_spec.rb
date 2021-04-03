@@ -68,11 +68,20 @@ RSpec.describe User, type: :model do
     end
 
     it "passwordとpassword_confirmationが不一致では登録できないこと" do
-      @user.password = "123456"
-      @user.password_confirmation = "1234567"
+      @user.password = "123abc"
+      @user.password_confirmation = "1234abc"
       @user.valid?
-      expect(@user.errors.full_messages).to include("Password には英字と数字の両方を含めて設定してください")
+      expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
     end
+
+
+    it "passwordは、確認用を含めて2回入力しないと登録できないこと" do
+      @user.password = "123abc"
+      @user.password_confirmation = ""
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password confirmation can't be blank")
+    end
+
 
     it "first_nameがない場合は登録できないこと" do
       @user.first_name = nil
