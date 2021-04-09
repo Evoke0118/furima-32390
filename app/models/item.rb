@@ -10,14 +10,14 @@ class Item < ApplicationRecord
   belongs_to :shipping_date
 
 
-  validates :images, presence: true
+  validates :image, presence: true
   validates :name, presence: true
   validates :description, presence: true
   validates :category_id, numericality: { other_than: 1 }, presence: true
   validates :status_id, numericality: { other_than: 1 }, presence: true
   validates :postage_id, numericality: { other_than: 1 }, presence: true
   validates :region_id, numericality: { other_than: 1 }, presence: true
-  validates :shipping_date__id, numericality: { other_than: 1 }, presence: true
+  validates :shipping_date_id, numericality: { other_than: 1 }, presence: true
   VALID_PRICEL_HALF = /\A[0-9]+\z/ 
   validates :price, presence: true,
                     numericality: { with: VALID_PRICEL_HALF, message: 'Half-width number' }
