@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :item do
-    image             {}
     name              {"オムライス"}
     description       {"あああああ"}
     category_id       {2}
