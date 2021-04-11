@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   def index
-    @items = Item.all
+    #@items = Item.all 商品一覧機能で記述
   end
   
   def new

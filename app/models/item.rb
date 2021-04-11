@@ -10,22 +10,30 @@ class Item < ApplicationRecord
   belongs_to :shipping_date
 
 
-  validates :image, presence: true
-  validates :name, presence: true
-  validates :description, presence: true
-  validates :category_id, numericality: { other_than: 1 }, presence: true
-  validates :status_id, numericality: { other_than: 1 }, presence: true
-  validates :postage_id, numericality: { other_than: 1 }, presence: true
-  validates :region_id, numericality: { other_than: 1 }, presence: true
-  validates :shipping_date_id, numericality: { other_than: 1 }, presence: true
+
+   
+ 
+ with_options presence: true do
+  validates :image
+  validates :name
+  validates :description
+  validates :price
+ end
+
+ with_options numericality: { other_than: 1 } do
+  validates :category_id
+  validates :status_id
+  validates :postage_id
+  validates :region_id
+  validates :shipping_date_id
+ end
+
   VALID_PRICEL_HALF = /\A[0-9]+\z/ 
-  validates :price, presence: true,
-                    numericality: { with: VALID_PRICEL_HALF, message: 'Half-width number' }
+  validates :price, numericality: { with: VALID_PRICEL_HALF, message: 'Half-width number' }
   validates :price, numericality: {
       greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999,
       message: 'Out of setting range' } 
-
-
+ 
 end
 
-
+     
