@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item, except: [:index, :new, :create]
-  before_action :authenticate_user!, only: [:new, :create, :destroy, :edit]
+  before_action :authenticate_user!, only: [:new, :create, :destroy, :edit, :update]
   before_action :move_to_index, only: [:edit, :update, :destory]
 
 
@@ -32,7 +32,6 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    redirect_to root_path unless current_user.id == @item.user_id 
   end
 
   def update
@@ -54,9 +53,7 @@ class ItemsController < ApplicationController
   end
 
   def move_to_index
-    unless user_signed_in?
-      redirect_to action: :index
-    end
+    redirect_to root_path unless current_user.id == @item.user_id
   end
 
 end
