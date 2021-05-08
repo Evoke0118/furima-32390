@@ -11,7 +11,7 @@ RSpec.describe User, type: :model do
     end
    end 
    
-      
+   
   context '新規登録できないとき' do
     it "nick_nameが空では登録できないこと" do
       @user.nick_name = nil
