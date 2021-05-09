@@ -71,13 +71,13 @@ RSpec.describe PurchaseRecord, type: :model do
         it "電話番号はハイフンが含まれている場合購入出来ないこと" do
           @purchase_record.phone_number = "090-1234-5678"
           @purchase_record.valid?
-          expect(@purchase_record.errors.full_messages).to include("Phone number is invalid. Include hyphen(-)")
+          expect(@purchase_record.errors.full_messages).to include("Phone number is invalid")
         end
 
         it "電話番号は12桁以上の場合購入出来ないこと" do
           @purchase_record.phone_number = "09012345678999"
           @purchase_record.valid?
-          expect(@purchase_record.errors.full_messages).to include("Phone number is invalid. Include hyphen(-)")
+          expect(@purchase_record.errors.full_messages).to include("Phone number is invalid")
         end
 
         it "user_idが空では購入出来ないこと" do
@@ -89,7 +89,7 @@ RSpec.describe PurchaseRecord, type: :model do
         it "item_idが空では購入出来ないこと" do
           @purchase_record.item_id = nil 
           @purchase_record.valid?
-          expect(@purchase_record.errofrs.full_messages).to include("Item can't be blank")
+          expect(@purchase_record.errors.full_messages).to include("Item can't be blank")
         end
        end  
     end
