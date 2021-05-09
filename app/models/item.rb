@@ -8,6 +8,7 @@ class Item < ApplicationRecord
   belongs_to :postage
   belongs_to :region
   belongs_to :shipping_date
+  has_one :order
 
 
 
