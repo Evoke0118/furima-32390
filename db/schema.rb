@@ -40,10 +40,10 @@ ActiveRecord::Schema.define(version: 2021_04_03_065801) do
     t.string "house_number", null: false
     t.string "building"
     t.string "phone_number", null: false
-    t.bigint "purchase_record_id"
+    t.bigint "order_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["purchase_record_id"], name: "index_addresses_on_purchase_record_id"
+    t.index ["order_id"], name: "index_addresses_on_order_id"
   end
 
   create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -61,13 +61,13 @@ ActiveRecord::Schema.define(version: 2021_04_03_065801) do
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
-  create_table "purchase_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "item_id"
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["item_id"], name: "index_purchase_records_on_item_id"
-    t.index ["user_id"], name: "index_purchase_records_on_user_id"
+    t.index ["item_id"], name: "index_orders_on_item_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -89,8 +89,8 @@ ActiveRecord::Schema.define(version: 2021_04_03_065801) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "addresses", "purchase_records"
+  add_foreign_key "addresses", "orders"
   add_foreign_key "items", "users"
-  add_foreign_key "purchase_records", "items"
-  add_foreign_key "purchase_records", "users"
+  add_foreign_key "orders", "items"
+  add_foreign_key "orders", "users"
 end
